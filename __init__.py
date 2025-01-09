@@ -84,7 +84,7 @@ def formulaire_nom():
     return render_template('fiche_nom.html')  # afficher le formulaire
 
 @app.route('/fiche_nom', methods=['POST'])
-def enregistrer_client():
+def rechercher_nom():
     nom = request.form['nom']
 
     # Connexion à la base de données
@@ -92,7 +92,7 @@ def enregistrer_client():
     cursor = conn.cursor()
 
     # Exécution de la requête SQL pour insérer un nouveau client
-    cursor.execute('INSERT INTO clients (created, nom, prenom, adresse) VALUES (?, ?, ?, ?)', (1002938, nom, prenom, "ICI"))
+    cursor.execute('SELECT * FROM clients LIKE nom')
     conn.commit()
     conn.close()
     return redirect('/consultation/')  # Rediriger vers la page d'accueil après l'enregistrement

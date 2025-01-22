@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rechercher un livre</title>
+</head>
+<body>
+    <h1>Rechercher un livre</h1>
+    <form action="{{ url_for('search_books') }}" method="POST">
+        <label for="query">Rechercher par titre ou auteur:</label><br>
+        <input type="text" id="query" name="query" required><br><br>
+        <input type="submit" value="Rechercher">
+    </form>
+    <br>
+    <a href="{{ url_for('index') }}">Retour à la liste des livres</a>
+</body>
+</html>

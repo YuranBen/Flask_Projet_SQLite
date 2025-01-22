@@ -1,3 +1,4 @@
+
 from flask import Flask, render_template_string, render_template, jsonify, request, redirect, url_for, session
 from flask import render_template
 from flask import json
@@ -93,7 +94,7 @@ def rechercher_nom():
 
     # Exécution de la requête SQL pour insérer un nouveau client
     cursor.execute('SELECT * FROM clients WHERE nom = ?'(nom,))
-    conn.commit()
+    data = cursor.fetchall
     conn.close()
     return redirect('/search_data_result')      
     

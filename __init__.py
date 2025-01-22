@@ -80,11 +80,8 @@ def enregistrer_client():
     conn.close()
     return redirect('/consultation/')  # Rediriger vers la page d'accueil après l'enregistrement
 
-#@app.route('/search_data', methods=['GET'])
-#def formulaire_nom():
-#    return render_template('fiche_nom.html')  # afficher le formulaire
 
-@app.route('/search_data')
+@app.route('/fiche_nom')
 def rechercher_nom():
 
     # Connexion à la base de données

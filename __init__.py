@@ -97,19 +97,17 @@ def rechercher_nom():
     conn.close()
     return redirect('/search_data_result')      
 
-@app.route('/search_data', methods=['POST'])
-def afficher_nom():
+
+@app.route('/fiche_nom/', methods=['POST'])
+def recherche_client():
     nom = request.form['nom']
 
-    # Connexion à la base de données
     conn = sqlite3.connect('database.db')
     cursor = conn.cursor()
-
-    # Exécution de la requête SQL pour insérer un nouveau client
-    cursor.execute('SELECT * FROM clients WHERE nom = ?'(nom,))
-    data = cursor.fetchall
+    cursor.execute('SELECT * FROM clients WHERE nom = ?', (nom,))
+    data = cursor.fetchall()
     conn.close()
-    return redirect('/search_data_result')      
+    return render_template('search_data_result.html', data=data)
 
 
     

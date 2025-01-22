@@ -93,9 +93,6 @@ def rechercher_nom():
 
     # Exécution de la requête SQL pour insérer un nouveau client
     cursor.execute('SELECT * FROM clients LIKE nom')
-    conn.commit()
-    conn.close()
-    return redirect('/consultation/')  # Rediriger vers la page d'accueil après l'enregistrement
                                                                                                                                        
 if __name__ == "__main__":
   app.run(debug=True)

@@ -93,6 +93,9 @@ def rechercher_nom():
 
     # Exécution de la requête SQL pour insérer un nouveau client
     cursor.execute('SELECT * FROM clients WHERE nom = ?'(nom,))
-                                                                                                                                       
+    conn.commit()
+    conn.close()
+    return redirect('/search_data_result')      
+    
 if __name__ == "__main__":
   app.run(debug=True)

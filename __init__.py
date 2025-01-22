@@ -95,7 +95,7 @@ def rechercher_nom():
     return render_template('search_data.html')     
 
 
-@app.route('/search_data', methods=['POST'])
+@app.route('/fiche_nom', methods=['POST'])
 def recherche_client():
     nom = request.form['nom']
 
@@ -106,7 +106,5 @@ def recherche_client():
     conn.close()
     return render_template('search_data_result.html', data=data)
 
-
-    
 if __name__ == "__main__":
   app.run(debug=True)

@@ -92,7 +92,7 @@ def rechercher_nom():
     cursor.execute('SELECT * FROM clients')
     data = cursor.fetchall
     conn.close()
-    return render_template('search_data_result.html')     
+    return render_template('search_data.html')     
 
 
 @app.route('/search_data', methods=['POST'])

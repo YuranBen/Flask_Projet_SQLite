@@ -84,6 +84,20 @@ def enregistrer_client():
 #def formulaire_nom():
 #    return render_template('fiche_nom.html')  # afficher le formulaire
 
+@app.route('/search_data')
+def rechercher_nom():
+    nom = request.form['nom']
+
+    # Connexion à la base de données
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+
+    # Exécution de la requête SQL pour insérer un nouveau client
+    cursor.execute('SELECT * FROM clients')
+    data = cursor.fetchall
+    conn.close()
+    return redirect('/search_data_result')      
+
 @app.route('/search_data', methods=['POST'])
 def rechercher_nom():
     nom = request.form['nom']
@@ -97,6 +111,8 @@ def rechercher_nom():
     data = cursor.fetchall
     conn.close()
     return redirect('/search_data_result')      
+
+
     
 if __name__ == "__main__":
   app.run(debug=True)

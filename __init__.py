@@ -99,7 +99,7 @@ def rechercher_nom():
     return redirect('/search_data_result')      
 
 @app.route('/search_data', methods=['POST'])
-def rechercher_nom():
+def afficher_nom():
     nom = request.form['nom']
 
     # Connexion à la base de données

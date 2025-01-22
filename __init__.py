@@ -80,19 +80,18 @@ def enregistrer_client():
     conn.close()
     return redirect('/consultation/')  # Rediriger vers la page d'accueil après l'enregistrement
 
-@app.route('/fiche_nom/')
-def ReadBDD_2():
-    if not est_authentifierecherche():
-        # Rediriger vers la page d'authentification si l'utilisateur n'est pas authentifié
-        return redirect(url_for('authentification_recherche'))
+@app.route('/fiche_nom')
+def rechercher_nom():
 
+    # Connexion à la base de données
     conn = sqlite3.connect('database.db')
     cursor = conn.cursor()
-    cursor.execute('SELECT * FROM clients;')
-    data = cursor.fetchall()
-    conn.close()
-    return render_template('search_data.html', data=data)
 
+    # Exécution de la requête SQL pour insérer un nouveau client
+    cursor.execute('SELECT * FROM clients')
+    data = cursor.fetchall
+    conn.close()
+    return render_template('search_data.html')     
 
 @app.route('/fiche_nom', methods=['POST'])
 def recherche_client():

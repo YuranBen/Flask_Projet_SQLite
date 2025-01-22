@@ -86,7 +86,6 @@ def enregistrer_client():
 
 @app.route('/search_data')
 def rechercher_nom():
-    nom = request.form['nom']
 
     # Connexion à la base de données
     conn = sqlite3.connect('database.db')

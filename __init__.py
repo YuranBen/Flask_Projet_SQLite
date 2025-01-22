@@ -98,7 +98,7 @@ def rechercher_nom():
     return render_template('search_data_result.html')     
 
 
-@app.route('/fiche_nom/', methods=['POST'])
+@app.route('/fiche_nom', methods=['POST'])
 def recherche_client():
     nom = request.form['nom']
 

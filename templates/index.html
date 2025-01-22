@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bibliothèque</title>
+</head>
+<body>
+    <h1>Bienvenue à la Bibliothèque</h1>
+
+    <h2>Liste des livres</h2>
+    <table>
+        <tr>
+            <th>Titre</th>
+            <th>Auteur</th>
+            <th>Genre</th>
+            <th>Date de publication</th>
+            <th>Exemplaires</th>
+        </tr>
+        {% for livre in livres %}
+        <tr>
+            <td>{{ livre.titre }}</td>
+            <td>{{ livre.auteur }}</td>
+            <td>{{ livre.genre }}</td>
+            <td>{{ livre.date_publication }}</td>
+            <td>{{ livre.exemplaires }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <br>
+    <a href="{{ url_for('add_book') }}">Ajouter un livre</a> | 
+    <a href="{{ url_for('search_books') }}">Rechercher un livre</a>
+</body>
+</html>

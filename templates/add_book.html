@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter un livre</title>
+</head>
+<body>
+    <h1>Ajouter un livre</h1>
+    <form action="{{ url_for('add_book') }}" method="POST">
+        <label for="titre">Titre:</label><br>
+        <input type="text" id="titre" name="titre" required><br><br>
+
+        <label for="auteur">Auteur:</label><br>
+        <input type="text" id="auteur" name="auteur" required><br><br>
+
+        <label for="genre">Genre:</label><br>
+        <input type="text" id="genre" name="genre" required><br><br>
+
+        <label for="date_publication">Date de publication:</label><br>
+        <input type="text" id="date_publication" name="date_publication" required><br><br>
+
+        <label for="exemplaires">Exemplaires:</label><br>
+        <input type="number" id="exemplaires" name="exemplaires" required><br><br>
+
+        <input type="submit" value="Ajouter">
+    </form>
+    <br>
+    <a href="{{ url_for('index') }}">Retour à la liste des livres</a>
+</body>
+</html>

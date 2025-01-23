@@ -5,7 +5,7 @@ conn = sqlite3.connect('bibliotheque.db')
 cursor = conn.cursor()
 
 # Création des tables
-cursor.execute("""
+cursor.execute('''
 DROP TABLE IF EXISTS livres;
 CREATE TABLE livres (
     id_livres INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -40,7 +40,7 @@ CREATE TABLE emprunts (
     FOREIGN KEY (id_livres) REFERENCES livres(id_livres),
     FOREIGN KEY (id_user) REFERENCES users(id_user)
 );
-""")
+''')
 
 # Fonction pour insérer un livre
 def ajouter_livre(titre, auteur, annee, quantite):

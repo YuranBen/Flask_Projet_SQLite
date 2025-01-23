@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bibliothèque</title>
+</head>
+<body>
+    <header>
+        <h1>Bibliothèque en ligne</h1>
+    </header>
+
+    <main>
+        <h2 style="text-align:center;">Liste des Livres</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Titre</th>
+                    <th>Auteur</th>
+                    <th>Année</th>
+                    <th>Quantité</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for livre in livres %}
+                    <tr>
+                        <td>{{ livre[0] }}</td>
+                        <td>{{ livre[1] }}</td>
+                        <td>{{ livre[2] }}</td>
+                        <td>{{ livre[3] }}</td>
+                        <td>{{ livre[4] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="/ajouter-livre" class="btn">Ajouter un Livre</a>
+    </main>
+</body>
+</html>

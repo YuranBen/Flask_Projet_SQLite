@@ -20,7 +20,7 @@ class Livre(db.Model):
 with app.app_context():
     db.create_all()
 
-@app.route('/')
+@app.route('/bookstore')
 def index():
     livres = Livre.query.all()
     return render_template('index.html', livres=livres)

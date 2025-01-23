@@ -15,9 +15,8 @@ CREATE TABLE livres (
     Année TEXT NOT NULL,
     Quantite INTEGER NOT NULL
 );
-""")
 
-cursor.execute("""
+
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
     id_user INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -28,9 +27,7 @@ CREATE TABLE users (
     Mail TEXT NOT NULL,
     Roles TEXT NOT NULL
 );
-""")
 
-cursor.execute("""
 DROP TABLE IF EXISTS emprunts;
 CREATE TABLE emprunts (
     id INTEGER PRIMARY KEY AUTOINCREMENT,

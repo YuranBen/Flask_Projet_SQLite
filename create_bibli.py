@@ -1,84 +1,50 @@
 import sqlite3
 
-# Connexion à la base de données (elle sera créée si elle n'existe pas)
-conn = sqlite3.connect('bibliotheque.db')
-cursor = conn.cursor()
+def init_db():
+    connection = sqlite3.connect('database.db')
 
-# Création des tables
-cursor.execute('''
-DROP TABLE IF EXISTS livres;
-CREATE TABLE livres (
-    id_livres INTEGER PRIMARY KEY AUTOINCREMENT,
-    created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    Titre TEXT NOT NULL,
-    Auteur TEXT NOT NULL,
-    Année TEXT NOT NULL,
-    Quantite INTEGER NOT NULL
-);
+    with connection:
+        # Exécuter le script SQL pour créer les tables
+        connection.executescript('''
+        CREATE TABLE IF NOT EXISTS clients (
+            ID_client INTEGER PRIMARY KEY AUTOINCREMENT,
+            nom TEXT NOT NULL,
+            prenom TEXT NOT NULL,
+            adresse TEXT NOT NULL
+        );
 
+        CREATE TABLE IF NOT EXISTS Livres (
+            ID_livre INTEGER PRIMARY KEY AUTOINCREMENT,
+            Titre TEXT NOT NULL,
+            Auteur TEXT NOT NULL,
+            Annee_publication INTEGER,
+            Quantite INTEGER NOT NULL CHECK (Quantite >= 0)
+        );
 
-DROP TABLE IF EXISTS users;
-CREATE TABLE users (
-    id_user INTEGER PRIMARY KEY AUTOINCREMENT,
-    created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    Nom TEXT NOT NULL,
-    Prenom TEXT NOT NULL,
-    Mdp TEXT NOT NULL,
-    Mail TEXT NOT NULL,
-    Roles TEXT NOT NULL
-);
+        CREATE TABLE IF NOT EXISTS Emprunts (
+            ID_emprunt INTEGER PRIMARY KEY AUTOINCREMENT,
+            ID_utilisateur TEXT NOT NULL,
+            ID_livre INTEGER NOT NULL,
+            Date_emprunt DATE NOT NULL DEFAULT (DATE('now')),
+            Date_retour DATE,
+            Statut TEXT NOT NULL DEFAULT 'Actif',
+            FOREIGN KEY (ID_livre) REFERENCES Livres (ID_livre)
+        );
+        ''')
 
-DROP TABLE IF EXISTS emprunts;
-CREATE TABLE emprunts (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    id_user INTEGER NOT NULL,
-    id_livres INTEGER NOT NULL,
-    created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    Date_emprunt TEXT NOT NULL,
-    Date_rendu TEXT NOT NULL,
-    Statut TEXT NOT NULL,
-    FOREIGN KEY (id_livres) REFERENCES livres(id_livres),
-    FOREIGN KEY (id_user) REFERENCES users(id_user)
-);
-''')
+        # Ajouter quelques données de test pour les livres
+        connection.executemany(
+            'INSERT INTO Livres (Titre, Auteur, Annee_publication, Quantite) VALUES (?, ?, ?, ?)',
+            [
+                ("1984", "George Orwell", 1949, 5),
+                ("Le Petit Prince", "Antoine de Saint-Exupéry", 1943, 3),
+                ("Harry Potter à l'école des sorciers", "J.K. Rowling", 1997, 7),
+                ("Les Misérables", "Victor Hugo", 1862, 4),
+                ("L'Alchimiste", "Paulo Coelho", 1988, 6)
+            ]
+        )
 
-# Fonction pour insérer un livre
-def ajouter_livre(titre, auteur, annee, quantite):
-    cursor.execute("""
-    INSERT INTO livres (Titre, Auteur, Année, Quantité)
-    VALUES (?, ?, ?, ?);
-    """, (titre, auteur, annee, quantite))
-    conn.commit()
+    print("Base de données initialisée avec succès.")
 
-# Fonction pour ajouter un utilisateur
-def ajouter_utilisateur(nom, prenom, mdp, mail, roles):
-    cursor.execute("""
-    INSERT INTO users (Nom, Prenom, Mdp, Mail, Roles)
-    VALUES (?, ?, ?, ?, ?);
-    """, (nom, prenom, mdp, mail, roles))
-    conn.commit()
-
-# Fonction pour enregistrer un emprunt
-def enregistrer_emprunt(id_user, id_livres, date_emprunt, date_rendu, statut):
-    cursor.execute("""
-    INSERT INTO emprunts (id_user, id_livres, Date_emprunt, Date_rendu, Statut)
-    VALUES (?, ?, ?, ?, ?);
-    """, (id_user, id_livres, date_emprunt, date_rendu, statut))
-    conn.commit()
-
-# Exemple d'ajout de livres et d'utilisateurs
-ajouter_livre("Le Seigneur des Anneaux", "J.R.R. Tolkien", "1954", 5)
-ajouter_utilisateur("Dupont", "Jean", "password123", "jean.dupont@mail.com", "admin")
-
-# Exemple d'ajout d'un emprunt
-enregistrer_emprunt(1, 1, "2025-01-23", "2025-02-23", "emprunté")
-
-# Affichage des livres pour vérifier
-cursor.execute("SELECT * FROM livres;")
-livres = cursor.fetchall()
-for livre in livres:
-    print(livre)
-
-# Fermer la connexion
-conn.close()
-
+if __name__ == "__main__":
+    init_db()

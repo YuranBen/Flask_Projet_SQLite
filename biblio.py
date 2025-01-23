@@ -1,5 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template_string, render_template, jsonify, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
+from flask import render_template
+from flask import json
+from urllib.request import urlopen
+from werkzeug.utils import secure_filename
+import sqlite3
 
 app = Flask(__name__)
 # Configurez la base de données SQLite (vous pouvez utiliser PostgreSQL ou MySQL selon vos besoins)

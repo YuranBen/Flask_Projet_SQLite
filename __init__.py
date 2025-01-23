@@ -104,5 +104,12 @@ def recherche_client():
     conn.close()
     return render_template('search_data_result.html', data=data)
 
+# Pages de la bibliothèque
+
+@app.route('/biblio')
+def afficher_livres():
+    return render_template('biblio.html')  # afficher les livres
+
+
 if __name__ == "__main__":
   app.run(debug=True)

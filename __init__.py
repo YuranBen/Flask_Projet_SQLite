@@ -108,6 +108,11 @@ def recherche_client():
 
 @app.route('/biblio')
 def afficher_livres():
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM livres;')
+    data = cursor.fetchall()
+    conn.close()
     return render_template('biblio.html')  # afficher les livres
 
 

@@ -6,7 +6,7 @@ def init_db():
     with open('schema.sql') as f:
     connection.executescript(f.read())
 
-cur = connection.cursor()
+    cur = connection.cursor()
 
     print("Base de données initialisée avec succès.")
 
